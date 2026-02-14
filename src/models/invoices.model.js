@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { Counter } from "./counter.model.js";
 
 const invoiceSchema = new Schema(
     {
@@ -29,7 +30,6 @@ const invoiceSchema = new Schema(
                 }
             }
         ],
-
 
         storeId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -66,5 +66,18 @@ const invoiceSchema = new Schema(
         timestamps: true
     }
 )
+
+invoiceSchema.pre("save", async function (next) {
+    if (this.invoiceNumber) return next();
+
+    const counter = await Counter.findOneAndUpdate(
+        { name: "invoice" },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
+    );
+
+    this.invoiceNumber = `stk_${String(counter.seq).padStart(3, "0")}`;
+    next();
+});
 
 export const Invoice = mongoose.model("Invoice", invoiceSchema);

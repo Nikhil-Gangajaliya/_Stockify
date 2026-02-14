@@ -24,8 +24,19 @@ app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 // Cookies
 app.use(cookieParser());
 
-// Optional public folder
-app.use(express.static("public"));
+/* ================= ROUTES ================= */
+import adminRoutes from "./routes/admin.routes.js";
+import storeRoutes from "./routes/store.routes.js";
+import productRoutes from "./routes/product.routes.js";
+import stockRoutes from "./routes/stock.routes.js";
+import invoiceRoutes from "./routes/invoice.routes.js";
+
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/store", storeRoutes);
+app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/stock", stockRoutes);
+app.use("/api/v1/invoice", invoiceRoutes);
+
 
 
 export { app };
