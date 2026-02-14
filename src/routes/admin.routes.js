@@ -29,7 +29,7 @@ router.post("/logout", verifyAdmin, adminLogout);
 router.get("/dashboard", verifyAdmin, getAdminDashboard);
 
 /* ========= STORES ========= */
-router.post("/stores", verifyAdmin, createStore);w
+router.post("/stores", verifyAdmin, createStore);
 router.get("/stores", verifyAdmin, getAllStores);
 router.get("/stores/:storeId", verifyAdmin, getStoreByStoreId);
 router.get("/stores/:storeId/stock", verifyAdmin, getStoreStockByStoreId);
