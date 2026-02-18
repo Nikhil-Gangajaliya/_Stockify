@@ -10,7 +10,8 @@ import {
   getProductByProductId,
   getAdminStock,
   getStoreStockByStoreId,
-  getStoreInvoicesByStoreId
+  getStoreInvoicesByStoreId,
+  getAllInvoices
 } from "../controllers/admin.controller.js";
 import {
   getAllOrderRequests,
@@ -33,6 +34,7 @@ router.post("/stores", verifyAdmin, createStore);
 router.get("/stores", verifyAdmin, getAllStores);
 router.get("/stores/:storeId", verifyAdmin, getStoreByStoreId);
 router.get("/stores/:storeId/stock", verifyAdmin, getStoreStockByStoreId);
+router.get("/invoices", verifyAdmin, getAllInvoices);
 router.get("/stores/:storeId/invoices", verifyAdmin, getStoreInvoicesByStoreId);
 
 /* ========= PRODUCTS ========= */

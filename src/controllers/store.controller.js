@@ -1,6 +1,8 @@
 import { Store } from "../models/store.model.js";
+import { Invoice } from "../models/invoices.model.js";
 import { StoreStock } from "../models/storeStock.model.js";
 import { ApiError } from "../utils/ApiError.js";
+import { formatInvoiceResponse } from "../utils/formatInvoice.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
@@ -47,8 +49,28 @@ const getMyStoreStock = asyncHandler(async (req, res) => {
   );
 });
 
+
+const getMyInvoices = asyncHandler(async (req, res) => {
+  const storeId = req.store._id;
+
+  const invoices = await Invoice.find({ storeId })
+    .populate("storeId", "storeId storeName")
+    .populate("items.productId", "productId name")
+    .sort({ createdAt: -1 });
+
+  res.status(200).json(
+    new ApiResponse(
+      200,
+      invoices.map(formatInvoiceResponse),
+      "Store invoices fetched"
+    )
+  );
+});
+
+
 export { 
   storeLogin,
   storeLogout,
-  getMyStoreStock
+  getMyStoreStock,
+  getMyInvoices
 };

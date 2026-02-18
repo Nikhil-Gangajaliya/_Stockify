@@ -139,12 +139,37 @@ const getStoreInvoicesByStoreId = asyncHandler(async (req, res) => {
   const store = await Store.findOne({ storeId });
   if (!store) throw new ApiError(404, "Store not found");
 
-  const invoices = await Invoice.find({ storeId: store._id });
+  const invoices = await Invoice.find({ storeId: store._id })
+    .populate("storeId", "storeId storeName")
+    .populate("items.productId", "productId name")
+    .sort({ createdAt: -1 });
 
-  res
-    .status(200)
-    .json(new ApiResponse(200, invoices, "Store invoices fetched"));
+  res.status(200).json(
+    new ApiResponse(
+      200,
+      invoices.map(formatInvoiceResponse),
+      "Store invoices fetched"
+    )
+  );
 });
+
+
+const getAllInvoices = asyncHandler(async (req, res) => {
+
+  const invoices = await Invoice.find()
+    .populate("storeId", "storeId storeName")
+    .populate("items.productId", "productId name")
+    .sort({ createdAt: -1 });
+
+  res.status(200).json(
+    new ApiResponse(
+      200,
+      invoices.map(formatInvoiceResponse),
+      "All invoices fetched"
+    )
+  );
+});
+
 
 export {
   adminLogin,
@@ -157,5 +182,6 @@ export {
   getProductByProductId,
   getAdminStock,
   getStoreStockByStoreId,
-  getStoreInvoicesByStoreId
+  getStoreInvoicesByStoreId,
+  getAllInvoices
 };

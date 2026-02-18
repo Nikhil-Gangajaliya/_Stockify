@@ -2,7 +2,8 @@ import { Router } from "express";
 import { 
   storeLogin,
   storeLogout,
-  getMyStoreStock
+  getMyStoreStock,
+  getMyInvoices
 } from "../controllers/store.controller.js";
 import {
   createOrderRequest,
@@ -26,6 +27,8 @@ router.get("/profile", verifyStore, (req, res) => {
 
 /* ========= STORE STOCK ========= */
 router.get("/stock", verifyStore, getMyStoreStock);
+
+router.get("/invoices", verifyStore, getMyInvoices);
 
 router.post("/order-requests", verifyStore, createOrderRequest);
 router.get("/order-requests", verifyStore, getMyOrderRequests);
