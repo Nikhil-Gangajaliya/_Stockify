@@ -31,7 +31,7 @@ const router = Router();
  * /admin/login:
  *   post:
  *     summary: Admin Login
- *     tags: [Admin]
+ *     tags: [Admin - Admin]
  *     requestBody:
  *       required: true
  *       content:
@@ -62,7 +62,7 @@ router.post("/login", adminLogin);
  * /admin/logout:
  *   post:
  *     summary: Admin Logout
- *     tags: [Admin]
+ *     tags: [Admin - Admin]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -76,7 +76,7 @@ router.post("/logout", verifyAdmin, adminLogout);
  * /admin/dashboard:
  *   get:
  *     summary: Get Admin Dashboard Data
- *     tags: [Admin]
+ *     tags: [Admin - Admin]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -92,7 +92,7 @@ router.get("/dashboard", verifyAdmin, getAdminDashboard);
  * /admin/stores:
  *   post:
  *     summary: Create New Store
- *     tags: [Store]
+ *     tags: [Admin - Store]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -134,7 +134,7 @@ router.post("/stores", verifyAdmin, createStore);
  * /admin/stores:
  *   get:
  *     summary: Get All Stores
- *     tags: [Store]
+ *     tags: [Admin - Store]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -148,7 +148,7 @@ router.get("/stores", verifyAdmin, getAllStores);
  * /admin/stores/{storeId}:
  *   get:
  *     summary: Get Store By Store ID
- *     tags: [Store]
+ *     tags: [Admin - Store]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -170,7 +170,7 @@ router.get("/stores/:storeId", verifyAdmin, getStoreByStoreId);
  * /admin/stores/{storeId}/stock:
  *   get:
  *     summary: Get Stock Of Specific Store
- *     tags: [Stock]
+ *     tags: [Admin - Stock]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -190,7 +190,7 @@ router.get("/stores/:storeId/stock", verifyAdmin, getStoreStockByStoreId);
  * /admin/invoices:
  *   get:
  *     summary: Get All Invoices
- *     tags: [Invoice]
+ *     tags: [Admin - Invoice]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -204,7 +204,7 @@ router.get("/invoices", verifyAdmin, getAllInvoices);
  * /admin/stores/{storeId}/invoices:
  *   get:
  *     summary: Get Invoices For Specific Store
- *     tags: [Invoice]
+ *     tags: [Admin - Invoice]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -226,7 +226,7 @@ router.get("/stores/:storeId/invoices", verifyAdmin, getStoreInvoicesByStoreId);
  * /admin/products:
  *   post:
  *     summary: Create Product
- *     tags: [Product]
+ *     tags: [Admin - Products]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -246,7 +246,7 @@ router.post("/products", verifyAdmin, createProduct);
  * /admin/products:
  *   get:
  *     summary: Get All Products
- *     tags: [Product]
+ *     tags: [Admin - Products]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -260,7 +260,7 @@ router.get("/products", verifyAdmin, getAllProducts);
  * /admin/products/{productId}:
  *   get:
  *     summary: Get Product By Product ID
- *     tags: [Product]
+ *     tags: [Admin - Products]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -284,7 +284,7 @@ router.get("/products/:productId", verifyAdmin, getProductByProductId);
  * /admin/stock:
  *   get:
  *     summary: Get Admin Stock
- *     tags: [Stock]
+ *     tags: [Admin - Stock]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -298,7 +298,7 @@ router.get("/stock", verifyAdmin, getAdminStock);
  * /admin/order-requests:
  *   get:
  *     summary: Get All Order Requests
- *     tags: [Order Requests]
+ *     tags: [Admin - Order Requests]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -320,7 +320,7 @@ router.get("/order-requests", verifyAdmin, getAllOrderRequests);
  * /admin/order-requests/{orderId}/approve:
  *   post:
  *     summary: Approve Order Request
- *     tags: [Order Requests]
+ *     tags: [Admin - Order Requests]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -340,7 +340,7 @@ router.post("/order-requests/:orderId/approve", verifyAdmin, approveOrderRequest
  * /admin/order-requests/{orderId}/reject:
  *   post:
  *     summary: Reject Order Request
- *     tags: [Order Requests]
+ *     tags: [Admin - Order Requests]
  *     security:
  *       - bearerAuth: []
  *     parameters:
