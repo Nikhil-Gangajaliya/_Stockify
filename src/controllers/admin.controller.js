@@ -21,9 +21,13 @@ const adminLogin = asyncHandler(async (req, res) => {
   const accessToken = admin.generateAccessToken();
 
   res
-    .cookie("accessToken", accessToken, { httpOnly: true })
-    .status(200)
-    .json(new ApiResponse(200, { accessToken }, "Admin logged in"));
+  .cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict"
+  })
+  .status(200)
+  .json(new ApiResponse(200, null, "Admin logged in"));
 });
 
 /* ========= ADMIN LOGOUT ========= */

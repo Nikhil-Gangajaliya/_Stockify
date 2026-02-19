@@ -17,7 +17,8 @@ const adminSchema = new Schema(
         },
         password: {
             type: String,
-            required: true
+            required: true,
+            select: false
         }
     },
     {
@@ -54,5 +55,11 @@ adminSchema.methods.generateRefreshToken = function () {
     return refreshToken;
 };
 
+adminSchema.set("toJSON", {
+  transform: function (doc, ret) {
+    delete ret.password;
+    return ret;
+  }
+});
 
 export const Admin = mongoose.model("Admin", adminSchema);

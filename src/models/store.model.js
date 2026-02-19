@@ -31,7 +31,8 @@ const storeSchema = new Schema(
     },
     password: {
       type: String,
-      required: true
+      required: true,
+      select: false
     }
   },
   { timestamps: true }
@@ -69,5 +70,13 @@ storeSchema.methods.generateAccessToken = function () {
     { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
   );
 };
+
+storeSchema.set("toJSON", {
+  transform: function (doc, ret) {
+    delete ret.password;
+    return ret;
+  }
+});
+
 
 export const Store = mongoose.model("Store", storeSchema);
