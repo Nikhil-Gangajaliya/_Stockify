@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { swaggerDocs } from "./swagger.js";
 
 const app = express();
 
@@ -37,6 +38,6 @@ app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/stock", stockRoutes);
 app.use("/api/v1/invoice", invoiceRoutes);
 
-
+swaggerDocs(app);
 
 export { app };
