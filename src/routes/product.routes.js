@@ -5,10 +5,20 @@ import { verifyStore } from "../middlewares/verifyStore.middleware.js";
 
 const router = Router();
 
-/* Admin view */
-router.get("/", verifyAdmin, getAllProducts);
-
-/* Store view */
+/**
+ * @openapi
+ * /products/store:
+ *   get:
+ *     summary: Get All Products (Store View)
+ *     tags: [Store - Products]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Products fetched successfully
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/store", verifyStore, getAllProducts);
 
 export default router;
