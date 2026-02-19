@@ -12,7 +12,11 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 const adminLogin = asyncHandler(async (req, res) => {
   const { adminId, password } = req.body;
 
-  const admin = await Admin.findOne({ adminId });
+  if (!adminId || !password) {
+    throw new ApiError(400, "AdminId and password are required");
+  }
+
+  const admin = await Admin.findOne({ adminId }).select("+password");
   if (!admin) throw new ApiError(404, "Admin not found");
 
   const isValid = await admin.isPasswordCorrect(password);
@@ -21,14 +25,15 @@ const adminLogin = asyncHandler(async (req, res) => {
   const accessToken = admin.generateAccessToken();
 
   res
-  .cookie("accessToken", accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict"
-  })
-  .status(200)
-  .json(new ApiResponse(200, null, "Admin logged in"));
+    .cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict"
+    })
+    .status(200)
+    .json(new ApiResponse(200, null, "Admin logged in"));
 });
+
 
 /* ========= ADMIN LOGOUT ========= */
 const adminLogout = asyncHandler(async (req, res) => {

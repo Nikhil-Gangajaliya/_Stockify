@@ -10,7 +10,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 const storeLogin = asyncHandler(async (req, res) => {
   const { storeId, password } = req.body;
 
-  const store = await Store.findOne({ storeId });
+  const store = await Store.findOne({ storeId }).select("+password");
   if (!store) throw new ApiError(404, "Store not found");
 
   const isValid = await store.isPasswordCorrect(password);
