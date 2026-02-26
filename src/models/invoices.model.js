@@ -57,7 +57,7 @@ const invoiceSchema = new Schema(
     }
   },
   {
-    timestamps: false
+    timestamps: true
   }
 );
 
