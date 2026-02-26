@@ -141,6 +141,22 @@ const getStoreStockByStoreId = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, stock, "Store stock fetched"));
 });
 
+const formatInvoiceResponse = (invoice) => ({
+  invoiceNumber: invoice.invoiceNumber,
+  store: invoice.storeId?.storeId,
+  customerName: invoice.custName,
+  customerContact: invoice.custContact,
+  totalAmount: invoice.totalAmount,
+  createdAt: invoice.createdAt,
+  items: invoice.items.map(item => ({
+    productId: item.productId?.productId,
+    productName: item.productId?.productName,
+    qty: item.qty,
+    unitPrice: item.unitPrice,
+    total: item.total
+  }))
+});
+
 /* ========= GET STORE INVOICES ========= */
 const getStoreInvoicesByStoreId = asyncHandler(async (req, res) => {
   const { storeId } = req.params;
