@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { transferStockToStore } from "../controllers/stock.controller.js";
+import { 
+    transferStockToStore,
+    increaseAdminStock
+} from "../controllers/stock.controller.js";
 import { verifyAdmin } from "../middlewares/verifyAdmin.middleware.js";
 
 const router = Router();
@@ -46,5 +49,9 @@ const router = Router();
  *         description: Store or Product not found
  */
 router.post("/stores/:storeId/stock", verifyAdmin, transferStockToStore);
+
+/* ========= ADMIN → INCREASE STOCK ========= */
+
+router.patch("/products/:productId/increase-stock", verifyAdmin, increaseAdminStock);
 
 export default router;
